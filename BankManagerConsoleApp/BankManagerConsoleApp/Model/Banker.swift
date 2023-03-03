@@ -9,5 +9,11 @@ import Foundation
 
 struct Banker: BankerProtocol {
 
-    static var processingTime = 0.7
+    var processingTime: Double
+
+    func work(for currentCustomerNumber: Int, what workType: String) {
+        print(workStart(currentCustomerNumber, what: workType))
+        Thread.sleep(forTimeInterval: processingTime)
+        print(workComplete(currentCustomerNumber, what: workType))
+    }
 }
