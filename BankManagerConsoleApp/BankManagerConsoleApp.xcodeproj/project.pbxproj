@@ -25,6 +25,72 @@
 		F0FA9CFC29A49A2A008B2044 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FA9CDB29A47DC2008B2044 /* LinkedList.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D9A6A12329B6D7C800DD4B5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9A6A11D29B6D7C800DD4B5D /* BankManagerUIApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7694E37259C3E9F0053667F;
+			remoteInfo = BankManagerUIApp;
+		};
+		D9A6A12529B6D7C800DD4B5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9A6A11D29B6D7C800DD4B5D /* BankManagerUIApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7694E4D259C3EA20053667F;
+			remoteInfo = BankManagerUIAppTests;
+		};
+		D9A6A12729B6D7C800DD4B5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9A6A11D29B6D7C800DD4B5D /* BankManagerUIApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7694E58259C3EA20053667F;
+			remoteInfo = BankManagerUIAppUITests;
+		};
+		D9A6A12F29B6D7D200DD4B5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9A6A12929B6D7D200DD4B5D /* BankManagerUIApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7694E37259C3E9F0053667F;
+			remoteInfo = BankManagerUIApp;
+		};
+		D9A6A13129B6D7D200DD4B5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9A6A12929B6D7D200DD4B5D /* BankManagerUIApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7694E4D259C3EA20053667F;
+			remoteInfo = BankManagerUIAppTests;
+		};
+		D9A6A13329B6D7D200DD4B5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9A6A12929B6D7D200DD4B5D /* BankManagerUIApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7694E58259C3EA20053667F;
+			remoteInfo = BankManagerUIAppUITests;
+		};
+		D9A6A13B29B6D7D700DD4B5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9A6A13529B6D7D700DD4B5D /* BankManagerUIApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7694E37259C3E9F0053667F;
+			remoteInfo = BankManagerUIApp;
+		};
+		D9A6A13D29B6D7D700DD4B5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9A6A13529B6D7D700DD4B5D /* BankManagerUIApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7694E4D259C3EA20053667F;
+			remoteInfo = BankManagerUIAppTests;
+		};
+		D9A6A13F29B6D7D700DD4B5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9A6A13529B6D7D700DD4B5D /* BankManagerUIApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7694E58259C3EA20053667F;
+			remoteInfo = BankManagerUIAppUITests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		C7694E74259C3EC00053667F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -43,6 +109,9 @@
 		C7D65D1A259C8190005510E0 /* BankManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BankManager.swift; path = ../../BankManager.swift; sourceTree = "<group>"; };
 		D941987129A741020010A251 /* SystemMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMenu.swift; sourceTree = "<group>"; };
 		D95C383D29B3015100D0732A /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		D9A6A11D29B6D7C800DD4B5D /* BankManagerUIApp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BankManagerUIApp.xcodeproj; path = ../../BankManagerUIApp/BankManagerUIApp.xcodeproj; sourceTree = "<group>"; };
+		D9A6A12929B6D7D200DD4B5D /* BankManagerUIApp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BankManagerUIApp.xcodeproj; path = ../../BankManagerUIApp/BankManagerUIApp.xcodeproj; sourceTree = "<group>"; };
+		D9A6A13529B6D7D700DD4B5D /* BankManagerUIApp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BankManagerUIApp.xcodeproj; path = ../../BankManagerUIApp/BankManagerUIApp.xcodeproj; sourceTree = "<group>"; };
 		D9E3203A29A6016A005E265C /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		D9E3203F29A604B6005E265C /* UserInputReceivable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputReceivable.swift; sourceTree = "<group>"; };
 		F015B9F429AC4E5D00B823C2 /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
@@ -113,6 +182,36 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		D9A6A11E29B6D7C800DD4B5D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9A6A12429B6D7C800DD4B5D /* BankManagerUIApp.app */,
+				D9A6A12629B6D7C800DD4B5D /* BankManagerUIAppTests.xctest */,
+				D9A6A12829B6D7C800DD4B5D /* BankManagerUIAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D9A6A12A29B6D7D200DD4B5D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9A6A13029B6D7D200DD4B5D /* BankManagerUIApp.app */,
+				D9A6A13229B6D7D200DD4B5D /* BankManagerUIAppTests.xctest */,
+				D9A6A13429B6D7D200DD4B5D /* BankManagerUIAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D9A6A13629B6D7D700DD4B5D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9A6A13C29B6D7D700DD4B5D /* BankManagerUIApp.app */,
+				D9A6A13E29B6D7D700DD4B5D /* BankManagerUIAppTests.xctest */,
+				D9A6A14029B6D7D700DD4B5D /* BankManagerUIAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D9E3203C29A60177005E265C /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +238,9 @@
 		F0FA9CF429A49A01008B2044 /* BankManagerConsoleAppTest */ = {
 			isa = PBXGroup;
 			children = (
+				D9A6A11D29B6D7C800DD4B5D /* BankManagerUIApp.xcodeproj */,
+				D9A6A12929B6D7D200DD4B5D /* BankManagerUIApp.xcodeproj */,
+				D9A6A13529B6D7D700DD4B5D /* BankManagerUIApp.xcodeproj */,
 				F0FA9CF529A49A01008B2044 /* LinkedQueueTest.swift */,
 			);
 			path = BankManagerConsoleAppTest;
@@ -209,6 +311,20 @@
 			mainGroup = C7694E6D259C3EC00053667F;
 			productRefGroup = C7694E77259C3EC00053667F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D9A6A11E29B6D7C800DD4B5D /* Products */;
+					ProjectRef = D9A6A11D29B6D7C800DD4B5D /* BankManagerUIApp.xcodeproj */;
+				},
+				{
+					ProductGroup = D9A6A12A29B6D7D200DD4B5D /* Products */;
+					ProjectRef = D9A6A12929B6D7D200DD4B5D /* BankManagerUIApp.xcodeproj */;
+				},
+				{
+					ProductGroup = D9A6A13629B6D7D700DD4B5D /* Products */;
+					ProjectRef = D9A6A13529B6D7D700DD4B5D /* BankManagerUIApp.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C7694E75259C3EC00053667F /* BankManagerConsoleApp */,
@@ -216,6 +332,72 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D9A6A12429B6D7C800DD4B5D /* BankManagerUIApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = BankManagerUIApp.app;
+			remoteRef = D9A6A12329B6D7C800DD4B5D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9A6A12629B6D7C800DD4B5D /* BankManagerUIAppTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BankManagerUIAppTests.xctest;
+			remoteRef = D9A6A12529B6D7C800DD4B5D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9A6A12829B6D7C800DD4B5D /* BankManagerUIAppUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BankManagerUIAppUITests.xctest;
+			remoteRef = D9A6A12729B6D7C800DD4B5D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9A6A13029B6D7D200DD4B5D /* BankManagerUIApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = BankManagerUIApp.app;
+			remoteRef = D9A6A12F29B6D7D200DD4B5D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9A6A13229B6D7D200DD4B5D /* BankManagerUIAppTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BankManagerUIAppTests.xctest;
+			remoteRef = D9A6A13129B6D7D200DD4B5D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9A6A13429B6D7D200DD4B5D /* BankManagerUIAppUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BankManagerUIAppUITests.xctest;
+			remoteRef = D9A6A13329B6D7D200DD4B5D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9A6A13C29B6D7D700DD4B5D /* BankManagerUIApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = BankManagerUIApp.app;
+			remoteRef = D9A6A13B29B6D7D700DD4B5D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9A6A13E29B6D7D700DD4B5D /* BankManagerUIAppTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BankManagerUIAppTests.xctest;
+			remoteRef = D9A6A13D29B6D7D700DD4B5D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9A6A14029B6D7D700DD4B5D /* BankManagerUIAppUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BankManagerUIAppUITests.xctest;
+			remoteRef = D9A6A13F29B6D7D700DD4B5D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F0FA9CF129A49A01008B2044 /* Resources */ = {
