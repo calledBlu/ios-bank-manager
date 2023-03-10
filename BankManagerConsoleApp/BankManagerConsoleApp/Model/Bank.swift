@@ -22,32 +22,40 @@ struct Bank: CustomerManageable {
         let loanSemaphore = DispatchSemaphore(value: 1)
         let accountSemaphore = DispatchSemaphore(value: 2)
         let group = DispatchGroup()
-        let startDate = Date()
 
-        while !customerQueue.isEmpty() {
-            guard let currentCustomer = customerQueue.dequeue() else { return }
+        let elapsedTime = measureTime {
+            while !customerQueue.isEmpty() {
+                guard let currentCustomer = customerQueue.dequeue() else { return }
 
-            switch currentCustomer.workType {
-            case WorkType.account.description :
-                DispatchQueue.global().async(group: group) {
-                    accountSemaphore.wait()
-                    accountBanker.work(for: currentCustomer)
-                    accountSemaphore.signal()
-                }
-            default:
-                DispatchQueue.global().async(group: group) {
-                    loanSemaphore.wait()
-                    loanBanker.work(for: currentCustomer)
-                    loanSemaphore.signal()
+                switch currentCustomer.workType {
+                case WorkType.account.description :
+                    DispatchQueue.global().async(group: group) {
+                        accountSemaphore.wait()
+                        accountBanker.work(for: currentCustomer)
+                        accountSemaphore.signal()
+                    }
+                default:
+                    DispatchQueue.global().async(group: group) {
+                        loanSemaphore.wait()
+                        loanBanker.work(for: currentCustomer)
+                        loanSemaphore.signal()
+                    }
                 }
             }
+
+            group.wait()
         }
 
-        group.wait()
-
-        let elapsedTime = Date().timeIntervalSince(startDate)
-
         showWorkFinishMessage(numberOfTodayCustomers, elapsedTime)
+    }
+
+    func measureTime(_ completion: @escaping () -> Void ) -> TimeInterval {
+
+        let startDate = Date()
+
+        completion()
+
+        return Date().timeIntervalSince(startDate)
     }
 
     func showWorkFinishMessage(_ totalNumber: Int, _ workTime: TimeInterval) {
