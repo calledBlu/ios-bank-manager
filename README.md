@@ -7,17 +7,15 @@
 
 [3. 순서도](#순서도)
 
-[4. UML](#uml)
+[4. 객체의 역할](#-객체의-역할과-책임)
 
-[5. 객체의 역할](#-객체의-역할과-책임)
+[5. 학습키워드 및 학습내용](#-학습-키워드-및-학습-내용)
 
-[6. 학습키워드 및 학습내용](#-학습-키워드-및-학습-내용)
+[6. STEP별 구현내용](#-step별-구현-내용)
 
-[7. STEP별 구현내용](#-step별-구현-내용)
+[7. 트러블 슈팅](#-트러블-슈팅)
 
-[8. 트러블 슈팅](#-트러블-슈팅)
-
-[9. 질문과 답변](#-질문과-답변)
+[8. 질문과 답변](#-질문과-답변)
 
 </br>
 
@@ -56,9 +54,7 @@
 
 ## 순서도
 
-<br>
-
-## UML
+<img src="https://user-images.githubusercontent.com/71758542/224683202-a1281cf4-4098-4351-8d13-87d60e7c7de2.png" height="800">
 
 <br>
 
@@ -153,6 +149,61 @@
         - 캡슐화한 값을 참조하는 것보다 복사하는 것이 합당할 때
         - 구조체에 저장된 프로퍼티가 값 타입이며 참조하는 것보다 복사하는 것이 합당할 때
         - 다른 타입으로부터 상속받거나 자신을 상속할 필요가 없을 때
+
+
+### 7. DispatchQueue: Sync/Async
+
+>[출처: Apple 공식문서 - DispatchQueue](https://developer.apple.com/documentation/dispatch/dispatchqueue)
+
+- **Sync, 동기**
+    - 앞선 작업이 종료될 때까지 대기 후 다음 작업 처리
+- **Async, 비동기**
+    - 앞선 작업이 종료되기를 기다리지 않고 다른 스레드에서 처리
+- **Sync, Async의 차이**
+    - 실행 종료 시점을 알 수 있는가에 대한 차이
+    - 비동기의 경우 언제 작업이 종료되는지 알 수 있음
+- **DispatchQueue**
+    - 동기 프로그래밍을 하면 이전 코드가 완료될 때 까지 기다려야 해서 프로그램의 지연을 발생시킨다는 단점이 있음
+이 때문에 비동기 프로그래밍을 하면 오래 걸리는 코드를 별도로 처리하면서도 다른 작업을 하는 효율을 꾀할 수 있는 장점이 있음
+    - `main().async`
+        - main스레드에서 비동기 작업
+        - 다른 스레드를 만들지 않고 main 스레드에서만 일을 처리
+        - 작업이 끝나기를 기다리지는 않고 있지만 main 스레드라는 단일 스레드에서만 작업이 이루어지고 있기 떄문에 동시에 작업이 처리되지는 못함
+        - 쌓인 순서대로 작업 처리
+    - `global().async`
+        - main 스레드가 아닌 다른 스레드를 만들어 비동기적으로 작업 처리
+        - async의 특성상 어떤 코드가 먼저 실행될 지는 예측할 수 없음
+        - 각 스레드마다 작업이 처리되는 속도가 다를 수 있고, 이를 직접 통제할 수 없음
+        - 동시에 처리되는 작업에 대해서는 논리적으로 정확한 순서를 기대하기는 어려움
+    - `global().sync`
+        - main 스레드가 아닌 다른 스레드를 생성하고 그 위에서 동기적으로 작업을 처리해주느 메서드
+        - 스레드는 각각 다르지만 동기적으로 일을 처리하기 때문에 각각의 작업이 끝나기를 기다림
+    - `main().sync`
+        - main 스레드에서 직접 호출하면 안되는 코드
+        - 작업이 끝나기를 기다리는 sync의 특성 떄문에 직접적으로 호출하는 경우 교착상태(deadlock)에 빠지게 됨
+        - Serial 큐를 커스텀하여 sync를 실행하면 에러는 발생하지 않음
+        - global 스레드에서 호출하는 것은 괜찮다!
+- **DispatchGroup**
+    - 작업 그룹을 만들어 그 그룹을 하나의 단위로 모니터링할 때 사용
+    - group.wait() 메서드를 DispatchGroup의 수행이 끝나기를 기다릴 수 있음
+
+
+### 8. Escaping closure
+> A closure is said to escape a function when the closure is passed as an argument to the function, but is called after the function returns.
+[출처: swift 공식문서 - Closures](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/closures/#Escaping-Closures)
+- closure는 해당 코드 구문에서 진행되어야 하지만 Escaping closure는 그 코드 구문, 함수가 반환된 이후에 진행되는 차이점이 있음.
+- 또한 closure는 정의된 주변 컨텍스트에서 값을 캡처하는데 상수와 변수에 대한 참조를 캡처하고 저장할 수 있어 원래 범위가 더 이상 존재하지 않아도 본문 내에서 해당 상수와 변수의 값을 참조하고 수정할 수 있음.
+- 하지만 escaping closure는 캡쳐한 값이 복사된 것이기에 그 안에서 수정하게 되더라도 원본에 영향을 줄 수 없어 mutable한 struct를 사용할 수 없고 class를 써야 함.
+공식문서에서도 struct와 enum은 shared mutability를 허용하지 않기에 mutable한 참조는 캡처할 수 없다고 함.
+자세한 내용은 문서에 나와있지 않아 설명을 바탕으로 추측해보면, closure는 해당 구문 내에서 실행되고, mutating을 통해 원본 값에 반영을 할 수 있지만 escaping closure는 해당 구문을 벗어나기 때문에 값을 캡처해서 복사하기 때문이라고 생각함.
+이 캡처도 reference type, value type을 구분하기 때문에 value type이라면 'Structures and Enumerations Are Value Types'에서 말하듯 값이 변경된 순간 다른 복사본 메모리로 만들어지기 때문에 원본에 영향이 없지만, reference type이라면 복사된 값이 변경되더라도 원본에 영향을 줄 수 있기 때문에 차이가 있다고 생각함.
+
+
+### 9. Semaphore
+> An object that controls access to a resource across multiple execution contexts through use of a traditional counting semaphore.
+[출처: apple 공식문서 - Dispatch Semaphore](https://developer.apple.com/documentation/dispatch/dispatch_semaphore/)
+- 공유자원에 접근할 수 있는 스레드의 수를 제어해 줌으로써 Race Condition을 방지해주는 역할도 함
+- 허용된 스레드 수만큼 접근된 상태라면 다른 스레드는 접근하지 못하고 줄을 서서 기다리게 됨
 
 </br>
 
@@ -307,6 +358,55 @@
 그러나 기술명세상에서는 은행원이 고객의 일을 처리해야 하고, 은행 타입 구현이 명시되어 있어 분리를 하게 되었습니다.
 최종적으로 Bank 타입을 구현하면서 BankManager는 전체적인 반복되는 업무 틀만 관리하는 역할을 하고, Bank는 CustomerQueue를 생성하여 큐 내부에 존재하는 고객의 대기번호를 은행원에게 전달하여 일을 처리할 수 있는 역할을 합니다.
 
+### 6. 3명의 은행원 비동기 처리
+- Step 3을 처음 설계 시 은행원이 3명이라는 구현 요구사항을 보고 은행원 객체를 3개 생성하여야 할까? 라는 고민을 하였습니다. 하지만 저번 step에서 콘이 조언해주신 것처럼 `프로그램의 서비스 시나리오와 프로그램의 시나리오가 동일시 되는 것 같다`라는 생각에 러스터와 함께 고민해 보았습니다.
+- 학습 키워드 중 `동시성 프로그래밍 개념의 이해`, `thread의 개념에 대한 이해`가 있어 설계 전 해당 부분을 충분히 학습하기로 결정하고 학습 결과, 은행원을 인원수에 맞춰 객체로 생성하는 것보다 업무를 구분하고, 해당 업무에 접근할 수 있는 thread의 수로 은행원의 수를 결정하는 것이 좋겠다 생각하였고, 이를 구현하기 위해 업무별로 semaphore를 선언하여 접근할 수 있는 스레드 수를 제어해 주었습니다.
+
+    ```swift
+    // Bank.swift 의 open() 메서드 내부
+        // ...
+        let loanSemaphore = DispatchSemaphore(value: 1)
+        let accountSemaphore = DispatchSemaphore(value: 2)
+
+        while !customerQueue.isEmpty() {
+            // ...
+            switch currentCustomerWorkType {
+            case WorkList.account.rawValue :
+                DispatchQueue.global().async(group: group) {
+                    accountSemaphore.wait()
+                    accountBanker.work(of: currentCustomer.waitingOrder, for: currentCustomerWorkType)
+                    todayCounter.addAccountCustomer()
+                    accountSemaphore.signal()
+            }
+            default:
+                DispatchQueue.global().async(group: group) {
+                    loanSemaphore.wait()
+                    accountBanker.work(of: currentCustomer.waitingOrder, for: currentCustomerWorkType)
+                    todayCounter.addLoanCustomer()
+                    loanSemaphore.signal()
+            }
+        }
+    }
+    ```
+
+### 7. 메서드 역할 분리(Counter)
+- 리팩토링 전 작성했던 Bank의 `open()`메서드 내부에 프로퍼티가 많이 포함되어 있고, 한 객체에 너무 많은 역할이 주어지는 것 같아서 역할 분리를 진행해 보고자 하였습니다.
+    ```swift
+    // refactoring 이전
+
+    let numberOfTodayCustomers = makeAcceptableNumber()
+    let customerQueue = makeCustomerQueue(maxCount: numberOfTodayCustomers)
+    let loanSemaphore = DispatchSemaphore(value: 1)
+    let accountSemaphore = DispatchSemaphore(value: 2)
+    let group = DispatchGroup()
+    var numberOfAccountCustomers = 0
+    var numberOfLoanCustomers = 0
+    ```
+- 위의 프로퍼티를 보고 분리할 수 있는 역할에 대해 고민해보다가 고객의 수를 집계하는 역할을 분리해보고자 Counter 클래스를 구현하였습니다.
+- Counter 클래스는 예금 고객의 수 / 대출 고객의 수를 프로퍼티로 가지고 각 고객을 1씩 증가시키는 add, 각 고객의 수를 가져오는 get, 모든 고객의 수를 초기화 시키는 reset 메서드를 가지고 있습니다.
+- 역할 분리로 인해 Bank 객체가 한 가지 역할을 덜 수행할 수 있게 되었고, `open()` 메서드 내부에서 처리해야 하는 일도 다른 객체에 위임할 수 있게 되었습니다!
+
+
 </br>
 
 ## 🙋🏻 질문과 답변
@@ -345,3 +445,115 @@
     > **리뷰어 🍿콘(@protocorn93)의 의견**
     >
     > 이 두 선택지에서 현재 프로그램에서 무엇을 사용하는지는 딱히 크게 중요한 것 같지는 않아요. 두 분이 말씀해주신 의도대로 Thread.sleep이 좀 더 편리해보이긴 해요!
+
+### 5. Escaping Closure의 Capture 원리
+- Customer의 수를 세기 위해 Counter를 class 타입으로 만들었습니다. 그런데 struct와 class 중에 선택할 때 class를 선택해야 하는 이유가 없다면 대부분의 경우에는 struct를 권장한다는 문서의 말에 따라 struct로 한 번 변경해보니 escaping closure에서 mutable한 값을 캡처할 수 없다는 오류를 보게 되었습니다.
+- Closure 공식문서를 통해 escaping closure는 mutable한 struct, enum은 capture할 수 없다는 설명은 보았지만, 그 이유에 대해서는 찾을 수 없었습니다.
+- 다방면으로 찾아보고 주변에 물어본 결과, 값을 복사해서 사용하기 때문에 escaping closure가 끝나면 원본에 반영되지 않고 사라지기에 그렇다-라는 결론이 나왔습니다. 그렇다면 값타입과 참조타입의 차이가 반영이 되었다는 것인데, 클로저 공통 설명에서는 값을 '참조'한다고 되어 있어 값타입이든 참조타입이든 변경이 가능한 것이 아닐까 하는 생각도 들었습니다.
+- 위의 결론과 생각을 다 만족시키려면 closure와 escaping closure의 캡처 방식이 다르거나 문서에서의 reference가 type을 뜻하는 것이 아니라 그냥 값 / 주소를 참고 한다의 '참조'이거나 둘 중 하나일 것이라 생각했습니다.
+- escaping closure에서 mutable한 값은 캡처할 수 없다는 문구와, 값을 캡처(복사)하여 사용해서 그렇다는 설명을 보고 납득은 했지만 이러한 이해가 맞는 것인지 여쭤보고 싶습니다!
+
+    > **리뷰어 🍿콘(@protocorn93)의 의견**
+    >
+    > closure와 escaping closure의 차이는 실행시점입니다. 일반적인 closure는 메서드 안에서 바로 실행됩니다. 하지만 메서드 안에서 바로 실행되지 않고, 변수에 저장되거나, 언제 실행될지 모르는 closure라면 현재 문맥을 벗어나서 실행된다는 의미에서 escaping closure라 불립니다.
+struct, enum과 같은 값타입의 인스턴스는 설계자체가 immutable 합니다. 애초에 기대하는 바가 복사이지 변경이 아니기 때문이죠. 복사는 말그대로 복사이기 때문에 이전 값의 영향을 주지 않아요. 이게 우리가 값타입에 기대하는바에요. 이를 통해 프로그램 흐름에 있어 예상치 못한 값의 변경을 방지하는데 사용할 수 있죠.
+escaping closure에서 값을 캡처한다는 것은 언젠가 이 closure가 실행될 때 캡처한 값을 읽거나 쓴다는 것을 의미하죠. 역시 쓴다는 의미가 내포되어 있기 때문에 값타입을 캡처한다는 것은 앞뒤 논리가 성립이 되지 않는것이죠.
+
+### 6. `if` vs `guard`
+- `Bank.swift`의 `open()` 메서드 내부에서 고객을 dequeue한 후 고객의 업무에 따라 분기처리를 할 수 있게끔 구현하려고 하는 부분에서 원래 `if-else`를 사용하였습니다.
+
+    ```swift
+    if currentCustomerWorkType == WorkList.account.rawValue {
+        DispatchQueue.global().async(group: group) {
+            accountSemaphore.wait()
+            accountBanker.work(for: currentCustomer.waitingOrder, what: currentCustomerWorkType)
+            todayCounter.addAccountCustomer(with: 1)
+            accountSemaphore.signal()
+        }
+    } else {
+        DispatchQueue.global().async(group: group) {
+            loanSemaphore.wait()
+            loanBanker.work(for: currentCustomer.waitingOrder, what: currentCustomerWorkType)
+            todayCounter.addLoanCustomer(with: 1)
+            loanSemaphore.signal()
+        }
+    }
+    ```
+- 클린코드 스터디를 진행한 버드에게서 `if-else` 구문을 사용하게 되면 `guard` 구문을 사용했을 때보다 가독성이 떨어진다는 이야기를 듣게 된 후 `guard-else`로 변경해 보았으나 guard는 조건에 일치하지 않는 경우 특정 실행 구문을 빠르게 종료하는 Early-exit의 특성이 강하다고 생각되었습니다.
+
+- 추가적으로 학습해본 결과 if문에서 else 사용을 지양하자! 라고 주장하는 이유는 아래의 두 가지로 추정되었습니다
+    - style(가독성) 관련
+    - 반전된 로직을 작성하게 되는 논리적 위험 발생 가능성
+- 저희의 프로젝트, Step 3에서는 업무가 예금 / 대출의 두 가지 중 하나이기 때문에 논리적 위험 발생 가능성은 없지만, else로 인해 해당 부분을 들여쓰게 되어 가독성 관련하여서는 지양해야 하는 케이스가 될 것 같습니다.
+- 저희의 경우 if-else를 사용해도 무방해 보이지만, guard-else{continue}를 써도 괜찮을 거 같아요. 현업에서 가독성 때문에 if문 사용 시 else 사용을 지양하는 편인지, 콘은 어떻게 사용하는 게 더 좋을 것 같은지가 궁금합니다!
+
+    > **리뷰어 🍿콘(@protocorn93)의 의견**
+    >
+    > 저는 이거 혹은 저거를 수행한다는 의미에서 if-else를 사용해요. "이럴 경우만" 수행해! 라면 guard를 사용하죠. 늬앙스가 조금 다른 것을 느낄 수 있을거에요.
+early exit은 if문으로도 충분히 가능하죠. 참 이게 어떤게 정답이다라곤 할 수 없는 것 같아요. 동료들끼리 어떤 합의가 되어있으며 어떤 방식으로 코드를 작성하는지, 어떤 방식을 사용해야 동료들이 내 코드를 읽을 때 좀 더 직관적일 수 있을까에 대해서 고민해보면 좋을거에요.
+
+### 7. DispatchQueue 관련 질문
+- semaphore를 account와 loan으로 두 개 사용하고, group까지 설정하니 선언한 프로퍼티가 벌써 3개가 넘어가 기본 타입 3개 이하로 유지해야 하는 원칙을 위배하게 되었습니다.
+- 비동기 프로그래밍을 하게 된다면 이처럼 설정해줘야 하는 것이 많은데 semaphore나 이런 프로퍼티도 따로 빼내서 사용할 수 있는지 여부와 저희 은행원 쓰레드의 async 코드도 사용하는 semaphore만 빼면 비슷한 구성인데 하나로 묶어서 사용할 수 있는 방법이 있을지 궁금합니다!
+    ```Swift
+    let loanSemaphore = DispatchSemaphore(value: 1)
+    let accountSemaphore = DispatchSemaphore(value: 2)
+    let group = DispatchGroup()
+
+    while !customerQueue.isEmpty() {
+        guard let currentCustomer = customerQueue.dequeue() else { return }
+
+        let currentCustomerWorkType = currentCustomer.workType
+
+        switch currentCustomerWorkType {
+        case WorkList.account.rawValue :
+            DispatchQueue.global().async(group: group) {
+                accountSemaphore.wait()
+                accountBanker.work(of: currentCustomer.waitingOrder, for: currentCustomerWorkType)
+                todayCounter.addAccountCustomer()
+                accountSemaphore.signal()
+            }
+        default:
+            DispatchQueue.global().async(group: group) {
+                loanSemaphore.wait()
+                accountBanker.work(of: currentCustomer.waitingOrder, for: currentCustomerWorkType)
+                todayCounter.addLoanCustomer()
+                loanSemaphore.signal()
+            }
+        }
+    }
+    ```
+    
+    > **리뷰어 🍿콘(@protocorn93)의 의견**
+    >
+    > 전 개인적으론 BankerProtocol이 존재해서 아래와 같은 그림을 상상했어요.
+    ```swift
+    final class LoanBanker: BankerProtocol { 
+    }
+
+    final class AccountBanker: BankerProtocol { 
+      private let semaphore: DispatchSemaphore 
+      ... 
+
+      init(numberOfBankers: Int, ... ) { 
+        self.semaphore = DispatchSemaphore(value: numberOfBankers)
+        ...
+      }
+
+      func work(customer: Customer) { 
+        guard customer.workType == .account else { return } 
+        ... 
+      } 
+    }
+
+    let bankers: [BankerProtocol]
+
+    init(bankers: [BankerProtocol]) {
+      self.bankers = bankers
+    }
+
+    customers.forEach { customer in 
+      bankers.forEach { $0.work(customer) }
+    }
+    ```
+    > 대충 적은 코드이지만 대략 저런 모습을 상상했어요. Bank에서 DispatchGroup을 각각 주입해주고 모든 일이 끝나면 notify 해주고 이때 Timer가 경과한 시간을 측정하는 그런 모습을 상상했습니다.
